@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         ),
-        home: SplashScreen(), 
+        home: MyHomePage(), 
       ),
     );
   }
@@ -62,10 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
         page = GeneratorPage();
         break;
       case 1:
-        page = ToDoPage();
+        page = Placeholder();
         break;
       case 2:
-        page = EDCPage();
+        page = Placeholder();
         break;
       case 3:
         page = Placeholder();
@@ -100,9 +100,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       label: Text('Home'),
                     ),
                     NavigationRailDestination(
-                      icon: Icon(Icons.favorite),
-                      label: Text('Favorites'),
+                      icon: Icon(Icons.backpack),
+                      label: Text('E.D.C.'),
                     ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.check_box),
+                      label: Text('To Do'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.payments),
+                      label: Text('Payments'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.calendar_month),
+                      label: Text('Calendar'),
+                    ),
+
                   ],
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (value) {
