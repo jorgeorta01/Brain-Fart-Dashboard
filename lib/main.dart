@@ -2,6 +2,7 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,17 @@ class MyApp extends StatelessWidget {
         title: 'Brain Fart Dashboard',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+          primaryColor: Color(0xFFF1744E),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Color(0xFFF1744E),
+            primary: Color(0xFFF1744E),
+            secondary: Color(0xFFB65A3D),
+          ),
+          navigationRailTheme: NavigationRailThemeData(
+            backgroundColor: Color(0xFFF1744E),
+            unselectedIconTheme: IconThemeData(color: Colors.white),
+            selectedIconTheme: IconThemeData(color: Colors.black),
+          ),
         ),
         home: MyHomePage(), 
       ),
@@ -59,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        page = WelcomePage();
         break;
       case 1:
         page = Placeholder();
@@ -141,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //This is Home, but holds a Name Generator from tutorial. Will replace soon.
 
-class GeneratorPage extends StatelessWidget {
+class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -156,93 +167,34 @@ class GeneratorPage extends StatelessWidget {
 
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Your stagename is...'),
-          SizedBox(height: 10),
-          BigCard(pair: pair),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  DateFormat('EEEE, MMMM d').format(DateTime.now()), // Display date as "Thursday, January 23"
+                  style: TextStyle(fontSize: 20), // Set the font size for the date
+                ),
+                Text(
+                  DateFormat('h:mm a').format(DateTime.now()), // Display hour and minute in 12-hour format with AM/PM
+                  style: TextStyle(fontSize: 24), // Set the font size for the time
+                ),
+              ],
+            ),
           ),
+          
+
         ],
       ),
     );
   }
 }
 
-//This is Favorites from tutorial. Will replace soon.
-class ToDoPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
 
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text('No favorites yet.'),
-      );
-    }
 
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
-        ),
-        for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(pair.asLowerCase),
-          ),
-      ],
-    );
-  }
-}
-
-class EDCPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text('No favorites yet.'),
-      );
-    }
-
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
-        ),
-        for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(pair.asLowerCase),
-          ),
-      ],
-    );
-  }
-}
 
 // ...
 class BigCard extends StatelessWidget {
