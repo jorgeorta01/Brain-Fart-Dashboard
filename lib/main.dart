@@ -19,16 +19,16 @@ class MyApp extends StatelessWidget {
         title: 'Brain Fart Dashboard',
         theme: ThemeData(
           useMaterial3: true,
-          primaryColor: Color(0xFFF1744E),
+          primaryColor: Color.fromARGB(255, 216, 105, 68),
           colorScheme: ColorScheme.fromSeed(
             seedColor: Color(0xFFF1744E),
             primary: Color(0xFFF1744E),
             secondary: Color(0xFFB65A3D),
           ),
           navigationRailTheme: NavigationRailThemeData(
-            backgroundColor: Color(0xFFF1744E),
+            backgroundColor: Color.fromARGB(255, 218, 111, 87),
             unselectedIconTheme: IconThemeData(color: Colors.white),
-            selectedIconTheme: IconThemeData(color: Colors.black),
+            selectedIconTheme: IconThemeData(color: Color.fromARGB(255, 218, 111, 87)),
           ),
         ),
         home: MyHomePage(), 
