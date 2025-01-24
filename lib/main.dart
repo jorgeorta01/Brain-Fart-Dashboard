@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
@@ -14,12 +15,12 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'Brain Fart Dashboard',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         ),
-        home: MyHomePage(),
+        home: SplashScreen(), 
       ),
     );
   }
@@ -32,6 +33,7 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
+
   var favorites = <WordPair>[];
 
   void toggleFavorite() {
@@ -43,9 +45,6 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-// ...
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -63,7 +62,25 @@ class _MyHomePageState extends State<MyHomePage> {
         page = GeneratorPage();
         break;
       case 1:
-        page = FavoritesPage();
+        page = ToDoPage();
+        break;
+      case 2:
+        page = EDCPage();
+        break;
+      case 3:
+        page = Placeholder();
+        break;
+      case 4:
+        page = Placeholder();
+        break;
+      case 2:
+        page = Placeholder();
+        break;
+      case 3:
+        page = Placeholder(); 
+        break;
+      case 4:
+        page = Placeholder();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -109,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-
+//This is Home, but holds a Name Generator from tutorial. Will replace soon.
 
 class GeneratorPage extends StatelessWidget {
   @override
@@ -128,7 +145,7 @@ class GeneratorPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text ('Your stagename is...'),
+          Text('Your stagename is...'),
           SizedBox(height: 10),
           BigCard(pair: pair),
           SizedBox(height: 10),
@@ -157,9 +174,36 @@ class GeneratorPage extends StatelessWidget {
   }
 }
 
-// ...
+//This is Favorites from tutorial. Will replace soon.
+class ToDoPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
 
-class FavoritesPage extends StatelessWidget {
+    if (appState.favorites.isEmpty) {
+      return Center(
+        child: Text('No favorites yet.'),
+      );
+    }
+
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text('You have '
+              '${appState.favorites.length} favorites:'),
+        ),
+        for (var pair in appState.favorites)
+          ListTile(
+            leading: Icon(Icons.favorite),
+            title: Text(pair.asLowerCase),
+          ),
+      ],
+    );
+  }
+}
+
+class EDCPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -208,7 +252,7 @@ class BigCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Text(
-          pair.asLowerCase, 
+          pair.asLowerCase,
           style: style,
           semanticsLabel: "${pair.first} ${pair.second}",
           ),
