@@ -103,37 +103,80 @@ class _MyHomePageState extends State<MyHomePage> {
           body: Row(
             children: [
               SafeArea(
-                child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
-                  destinations: [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.backpack),
-                      label: Text('E.D.C.'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.check_box),
-                      label: Text('To Do'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.payments),
-                      label: Text('Payments'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.calendar_month),
-                      label: Text('Calendar'),
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
 
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
+                    topLeft: Radius.elliptical(25.0, 50.0),
+                    topRight: Radius.elliptical(50.0, 25.0),
+                    bottomLeft: Radius.elliptical(25.0, 50.0),
+                    bottomRight: Radius.elliptical(50.0, 25.0),
+                  ),
+                  child: NavigationRail(
+                    extended: constraints.maxWidth >= 600,
+                    destinations: [
+                      NavigationRailDestination(
+                        icon: Icon(Icons.home),
+                        label: Text(
+                          'Home',
+                          style: TextStyle(
+                            color: selectedIndex == 0 
+                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
+                                : Colors.white, // Unselected color
+                          ),
+                        ),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.backpack),
+                        label: Text(
+                          'E.D.C.',
+                          style: TextStyle(
+                            color: selectedIndex == 1 
+                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
+                                : Colors.white, // Unselected color
+                          ),
+                        ),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.check_box),
+                        label: Text(
+                          'To Do',
+                          style: TextStyle(
+                            color: selectedIndex == 2 
+                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
+                                : Colors.white, // Unselected color
+                          ),
+                        ),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.payments),
+                        label: Text(
+                          'Payments',
+                          style: TextStyle(
+                            color: selectedIndex == 3 
+                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
+                                : Colors.white, // Unselected color
+                          ),
+                        ),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.calendar_month),
+                        label: Text(
+                          'Calendar',
+                          style: TextStyle(
+                            color: selectedIndex == 4 
+                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
+                                : Colors.white, // Unselected color
+                          ),
+                        ),
+                      ),
+                    ],
+                    selectedIndex: selectedIndex,
+                    onDestinationSelected: (value) {
+                      setState(() {
+                        selectedIndex = value;
+                      });
+                    },
+                  ),
                 ),
               ),
               Expanded(
@@ -169,6 +212,7 @@ class WelcomePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
@@ -178,15 +222,29 @@ class WelcomePage extends StatelessWidget {
                   DateFormat('EEEE, MMMM d').format(DateTime.now()), // Display date as "Thursday, January 23"
                   style: TextStyle(fontSize: 20), // Set the font size for the date
                 ),
+
                 Text(
                   DateFormat('h:mm a').format(DateTime.now()), // Display hour and minute in 12-hour format with AM/PM
                   style: TextStyle(fontSize: 24), // Set the font size for the time
                 ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50.0, left: 20.0),
+ 
+                      child: Text(
+                        "Hello, User",
+                        style: TextStyle(fontSize: 24), // Set the font size for the time
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
-          
-
+        
         ],
       ),
     );
