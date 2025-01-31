@@ -28,10 +28,11 @@ class MyApp extends StatelessWidget {
           navigationRailTheme: NavigationRailThemeData(
             backgroundColor: Color.fromARGB(255, 218, 111, 87),
             unselectedIconTheme: IconThemeData(color: Colors.white),
-            selectedIconTheme: IconThemeData(color: Color.fromARGB(255, 218, 111, 87)),
+            selectedIconTheme:
+                IconThemeData(color: Color.fromARGB(255, 218, 111, 87)),
           ),
         ),
-        home: MyHomePage(), 
+        home: MyHomePage(),
       ),
     );
   }
@@ -88,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = Placeholder();
         break;
       case 3:
-        page = Placeholder(); 
+        page = Placeholder();
         break;
       case 4:
         page = Placeholder();
@@ -96,106 +97,134 @@ class _MyHomePageState extends State<MyHomePage> {
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
-    
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
 
-                    topLeft: Radius.elliptical(25.0, 50.0),
-                    topRight: Radius.elliptical(50.0, 25.0),
-                    bottomLeft: Radius.elliptical(25.0, 50.0),
-                    bottomRight: Radius.elliptical(50.0, 25.0),
-                  ),
-                  child: NavigationRail(
-                    extended: constraints.maxWidth >= 600,
-                    destinations: [
-                      NavigationRailDestination(
-                        icon: Icon(Icons.home),
-                        label: Text(
-                          'Home',
-                          style: TextStyle(
-                            color: selectedIndex == 0 
-                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
-                                : Colors.white, // Unselected color
-                          ),
+    return LayoutBuilder(builder: (context, constraints) {
+      return Scaffold(
+        body: Row(
+          children: [
+            SafeArea(
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.elliptical(25.0, 50.0),
+                  topRight: Radius.elliptical(50.0, 25.0),
+                  bottomLeft: Radius.elliptical(25.0, 50.0),
+                  bottomRight: Radius.elliptical(50.0, 25.0),
+                ),
+                child: NavigationRail(
+                  extended: constraints.maxWidth >= 600,
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text(
+                        'Home',
+                        style: TextStyle(
+                          color: selectedIndex == 0
+                              ? Color.fromARGB(
+                                  255, 218, 111, 87) // Selected color
+                              : Colors.white, // Unselected color
                         ),
                       ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.backpack),
-                        label: Text(
-                          'E.D.C.',
-                          style: TextStyle(
-                            color: selectedIndex == 1 
-                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
-                                : Colors.white, // Unselected color
-                          ),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.backpack),
+                      label: Text(
+                        'E.D.C.',
+                        style: TextStyle(
+                          color: selectedIndex == 1
+                              ? Color.fromARGB(
+                                  255, 218, 111, 87) // Selected color
+                              : Colors.white, // Unselected color
                         ),
                       ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.check_box),
-                        label: Text(
-                          'To Do',
-                          style: TextStyle(
-                            color: selectedIndex == 2 
-                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
-                                : Colors.white, // Unselected color
-                          ),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.check_box),
+                      label: Text(
+                        'To Do',
+                        style: TextStyle(
+                          color: selectedIndex == 2
+                              ? Color.fromARGB(
+                                  255, 218, 111, 87) // Selected color
+                              : Colors.white, // Unselected color
                         ),
                       ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.payments),
-                        label: Text(
-                          'Payments',
-                          style: TextStyle(
-                            color: selectedIndex == 3 
-                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
-                                : Colors.white, // Unselected color
-                          ),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.payments),
+                      label: Text(
+                        'Payments',
+                        style: TextStyle(
+                          color: selectedIndex == 3
+                              ? Color.fromARGB(
+                                  255, 218, 111, 87) // Selected color
+                              : Colors.white, // Unselected color
                         ),
                       ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.calendar_month),
-                        label: Text(
-                          'Calendar',
-                          style: TextStyle(
-                            color: selectedIndex == 4 
-                                ? Color.fromARGB(255, 218, 111, 87) // Selected color
-                                : Colors.white, // Unselected color
-                          ),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.calendar_month),
+                      label: Text(
+                        'Calendar',
+                        style: TextStyle(
+                          color: selectedIndex == 4
+                              ? Color.fromARGB(
+                                  255, 218, 111, 87) // Selected color
+                              : Colors.white, // Unselected color
                         ),
                       ),
-                    ],
-                    selectedIndex: selectedIndex,
-                    onDestinationSelected: (value) {
-                      setState(() {
-                        selectedIndex = value;
-                      });
-                    },
-                  ),
+                    ),
+                  ],
+                  selectedIndex: selectedIndex,
+                  onDestinationSelected: (value) {
+                    setState(() {
+                      selectedIndex = value;
+                    });
+                  },
                 ),
               ),
-              Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: page,
-                ),
+            ),
+            Expanded(
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: page,
               ),
-            ],
-          ),
-        );
-      }
-    );
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 
 //This is Home, but holds a Name Generator from tutorial. Will replace soon.
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  late Timer _timer;
+  late DateTime _currentTime;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentTime = DateTime.now();
+    // Update time every second
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _currentTime = DateTime.now();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Clean up timer when widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -212,31 +241,28 @@ class WelcomePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  DateFormat('EEEE, MMMM d').format(DateTime.now()), // Display date as "Thursday, January 23"
-                  style: TextStyle(fontSize: 20), // Set the font size for the date
+                  DateFormat('EEEE, MMMM d').format(_currentTime),
+                  style: TextStyle(fontSize: 20),
                 ),
-
                 Text(
-                  DateFormat('h:mm a').format(DateTime.now()), // Display hour and minute in 12-hour format with AM/PM
-                  style: TextStyle(fontSize: 24), // Set the font size for the time
+                  DateFormat('h:mm a').format(_currentTime),
+                  style: TextStyle(fontSize: 24),
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 50.0, left: 20.0),
- 
                       child: Text(
                         "Hello, User",
-                        style: TextStyle(fontSize: 24), // Set the font size for the time
+                        style: TextStyle(
+                            fontSize: 24), // Set the font size for the time
                       ),
                     ),
                   ],
@@ -244,15 +270,11 @@ class WelcomePage extends StatelessWidget {
               ],
             ),
           ),
-        
         ],
       ),
     );
   }
 }
-
-
-
 
 // ...
 class BigCard extends StatelessWidget {
@@ -278,7 +300,7 @@ class BigCard extends StatelessWidget {
           pair.asLowerCase,
           style: style,
           semanticsLabel: "${pair.first} ${pair.second}",
-          ),
+        ),
       ),
     );
   }
