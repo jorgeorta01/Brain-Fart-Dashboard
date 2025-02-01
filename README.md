@@ -1,4 +1,4 @@
-# inuitive_coin_collector
+# Brain Fart Dashboard
 
 A new Flutter project.
 
