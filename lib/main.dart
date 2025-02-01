@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
+import 'package:webview_windows/webview_windows.dart';
 
 void main() {
   runApp(MyApp());
@@ -85,14 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
       case 4:
         page = Placeholder();
         break;
-      case 2:
-        page = Placeholder();
-        break;
-      case 3:
-        page = Placeholder();
-        break;
-      case 4:
-        page = Placeholder();
+      case 5:
+        page = ParcelsPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -104,12 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SafeArea(
               child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.elliptical(25.0, 50.0),
-                  topRight: Radius.elliptical(50.0, 25.0),
-                  bottomLeft: Radius.elliptical(25.0, 50.0),
-                  bottomRight: Radius.elliptical(50.0, 25.0),
-                ),
                 child: NavigationRail(
                   extended: constraints.maxWidth >= 600,
                   destinations: [
@@ -165,6 +154,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       icon: Icon(Icons.calendar_month),
                       label: Text(
                         'Calendar',
+                        style: TextStyle(
+                          color: selectedIndex == 4
+                              ? Color.fromARGB(
+                                  255, 218, 111, 87) // Selected color
+                              : Colors.white, // Unselected color
+                        ),
+                      ),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.mail),
+                      label: Text(
+                        'Parcels',
                         style: TextStyle(
                           color: selectedIndex == 4
                               ? Color.fromARGB(
@@ -268,6 +269,76 @@ class _WelcomePageState extends State<WelcomePage> {
                   ],
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ParcelsPage extends StatefulWidget {
+  @override
+  State<ParcelsPage> createState() => _ParcelsPageState();
+}
+
+class _ParcelsPageState extends State<ParcelsPage> {
+  final _controller = WebviewController();
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    try {
+      await _controller.initialize();
+      final widgetUrl = Uri.parse('https://parcelsapp.com/widget').replace(
+        queryParameters: {
+          'backgroundColorButton': 'F1744E', // Your app's primary color
+          'colorButton': 'FFFFFF', // White text
+          'borderRadiusButton': '8',
+          'borderRadiusInput': '8',
+          'widgetWrapBorderRadius': '12',
+          'fontButton': 'Roboto', // Match your app's font
+        },
+      ).toString();
+
+      await _controller.loadUrl(widgetUrl);
+
+      if (mounted) {
+        setState(() {});
+      }
+    } catch (e) {
+      print('Error initializing webview: $e');
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Track Your Parcels',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: _controller.value.isInitialized
+                  ? Webview(_controller) // Note: Webview, not WebView
+                  : const Center(child: CircularProgressIndicator()),
             ),
           ),
         ],
