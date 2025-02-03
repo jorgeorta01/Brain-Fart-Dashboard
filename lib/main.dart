@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
                 IconThemeData(color: Color.fromARGB(255, 218, 111, 87)),
           ),
         ),
-        home: MyHomePage(),
+        home: LoadingScreen(),
       ),
     );
   }
@@ -381,6 +381,49 @@ class BigCard extends StatelessWidget {
           pair.asLowerCase,
           style: style,
           semanticsLabel: "${pair.first} ${pair.second}",
+        ),
+      ),
+    );
+  }
+}
+
+// New LoadingScreen widget
+class LoadingScreen extends StatefulWidget {
+  @override
+  _LoadingScreenState createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends State<LoadingScreen> {
+  double _opacity = 1.0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Start the fade out and navigate after 5 seconds
+    Future.delayed(Duration(seconds: 5), () {
+      setState(() {
+        _opacity = 0.0; // Start fading out
+      });
+      Future.delayed(Duration(seconds: 1), () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => MyHomePage()),
+        );
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: AnimatedOpacity(
+          opacity: _opacity,
+          duration: Duration(seconds: 1),
+          child: SizedBox(
+            width: 150,
+            height: 150,
+            child: Image.asset('images/BF_logo.png'),
+          ),
         ),
       ),
     );
