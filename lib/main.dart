@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     NavigationRailDestination(
                       icon: Icon(Icons.mail),
                       label: Text(
-                        'Parcels',
+                        'Parcel Monitor',
                         style: TextStyle(
                           color: selectedIndex == 4
                               ? Color.fromARGB(
@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-//This is Home, but holds a Name Generator from tutorial. Will replace soon.
+//This is the Welcome Page.
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -277,6 +277,8 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 }
 
+// This is the ParcelsPage.
+
 class ParcelsPage extends StatefulWidget {
   @override
   State<ParcelsPage> createState() => _ParcelsPageState();
@@ -296,12 +298,20 @@ class _ParcelsPageState extends State<ParcelsPage> {
       await _controller.initialize();
       final widgetUrl = Uri.parse('https://parcelsapp.com/widget').replace(
         queryParameters: {
-          'backgroundColorButton': 'F1744E', // Your app's primary color
-          'colorButton': 'FFFFFF', // White text
-          'borderRadiusButton': '8',
-          'borderRadiusInput': '8',
-          'widgetWrapBorderRadius': '12',
-          'fontButton': 'Roboto', // Match your app's font
+          'textButton' : 'Trace',
+          'fontButton': 'Roboto',
+          'fontSizeButton' : '16px',
+          // 'trackingNumber' : '', //Don't care lololol
+          // 'backgroundColorButton': 'FFF1744E', //Doesn't work
+          // 'borderButton' : '', //Don't care lololol
+          'borderRadiusButton': '12',
+          // 'colorButton': 'FFFFFF',
+          // 'placeholder': '',
+          // 'borderRadiusInput': '8',
+          'borderInput' : '1px solid #808080',
+          // 'widgetWrapBorder': '',
+          'widgetWrapBorderRadius': '12'
+
         },
       ).toString();
 
@@ -329,7 +339,7 @@ class _ParcelsPageState extends State<ParcelsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Track Your Parcels',
+            'Parcel Monitor',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 16),
