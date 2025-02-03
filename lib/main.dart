@@ -73,22 +73,22 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (selectedIndex) {
       case 0:
         page = WelcomePage();
-        break;
+        // break;
       case 1:
         page = Placeholder();
-        break;
+        // break;
       case 2:
         page = Placeholder();
-        break;
+        // break;
       case 3:
         page = Placeholder();
-        break;
+        // break;
       case 4:
         page = Placeholder();
-        break;
+        // break;
       case 5:
         page = ParcelsPage();
-        break;
+        // break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -167,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       label: Text(
                         'Parcel Monitor',
                         style: TextStyle(
-                          color: selectedIndex == 4
+                          color: selectedIndex == 5
                               ? Color.fromARGB(
                                   255, 218, 111, 87) // Selected color
                               : Colors.white, // Unselected color
@@ -387,27 +387,28 @@ class BigCard extends StatelessWidget {
   }
 }
 
-// New LoadingScreen widget
+//LoadingScreen widget
 class LoadingScreen extends StatefulWidget {
   @override
-  _LoadingScreenState createState() => _LoadingScreenState();
+  LoadingScreenState createState() => LoadingScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class LoadingScreenState extends State<LoadingScreen> {
   double _opacity = 1.0;
 
   @override
   void initState() {
     super.initState();
-    // Start the fade out and navigate after 5 seconds
     Future.delayed(Duration(seconds: 5), () {
       setState(() {
-        _opacity = 0.0; // Start fading out
+        _opacity = 0.0;
       });
       Future.delayed(Duration(seconds: 1), () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => MyHomePage()),
-        );
+        if (mounted) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => MyHomePage()),
+          );
+        }
       });
     });
   }
